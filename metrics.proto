@@ -1,0 +1,28 @@
+syntax = "proto3";
+package metrics;
+option go_package = "metrics";
+
+import "google/protobuf/empty.proto";
+
+service Metrics {
+
+  // RPC to stream processed metrics from aggregator to apilo service
+  rpc StreamLoMetrics(google.protobuf.Empty) returns (stream ApiloMetric){}
+  
+}
+
+message ApiloMetric{
+  int64  timestamp           = 1;
+  string project             = 2;
+  string apicollabspace      = 3;
+  string cluster             = 4;
+  string runtime_namespace   = 5;
+  string path                = 6;
+  string method              = 7;
+  string protocol            = 8;
+  string service             = 9;
+  uint32 port                = 10;
+  int64 total_request_count  = 11;
+  string metric              = 12;
+  double value               = 13;
+}
