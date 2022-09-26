@@ -1,6 +1,6 @@
 syntax = "proto3";
 package metrics;
-option go_package = "metrics";
+option go_package = "github.com/Kiruthika-Jayabalan/mazinger-demo/metrics";
 
 import "google/protobuf/empty.proto";
 
