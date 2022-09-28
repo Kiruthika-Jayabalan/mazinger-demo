@@ -1,0 +1,64 @@
+syntax = "proto3";
+package metrics;
+option go_package = "metrics";
+
+import "google/protobuf/empty.proto";
+
+service MetricsWriter {
+  rpc StreamRawMetric(stream RawMetric) returns (google.protobuf.Empty) {}
+}
+
+message Headers{
+  string host = 1;
+}
+
+message API{
+  string protocol = 1;
+  string path = 2;
+  string method = 3;
+  Headers headers = 4;
+}
+
+message HTTPStatusCount {
+  int64 oneXX = 1;
+  int64 twoXX = 2;
+  int64 threeXX = 3;
+  int64 fourXX = 4;
+  int64 fiveXX = 5;
+}
+
+message Latency{
+  int64 Latency_0_000001 = 1;
+  int64 Latency_0_00001 = 2;
+  int64 Latency_0_0001 = 3;
+  int64 Latency_0_001 = 4;
+  int64 Latency_0_01 = 5;
+  int64 Latency_0_1 = 6;
+  int64 Latency_1_0 = 7;
+  int64 Latency_10_0 = 8;
+  int64 Latency_100_0 = 9;
+  int64 Latency_1000_0 = 10;
+  int64 Latency_10000_0 = 11;
+  int64 Latency_100000_0 = 12;
+  int64 Latency_Inf = 13;
+}
+
+message Service{
+  string name = 1;
+  int32 port = 2;
+}
+
+message Route{
+  string name = 1;
+}
+
+message RawMetric{
+  int64 timestamp = 1;
+  string runtime_namespace = 2;
+  Service service = 3;
+  Route route = 4;
+  API api = 5;
+  int64 total_request_count = 6;
+  Latency latency = 7;
+  HTTPStatusCount http_status_count = 8;
+}
